@@ -1,14 +1,15 @@
+
 #!/usr/bin/python3
-"""the UTF-8 Validation
+""" the UTF-8 Validation method
 """
 
 
 def validUTF8(data):
     """
-    these determines if a given data set
-    represents a valid utf-8 encoding
+    this a Method that determines if a given data set
+    represents a valid UTF-8 encoding.
     """
-    nubr_byts = 0
+    number_bytes = 0
 
     mask_1 = 1 << 7
     mask_2 = 1 << 6
@@ -17,26 +18,25 @@ def validUTF8(data):
 
         mask_byte = 1 << 7
 
-        if nubr_byts == 0:
+        if number_bytes == 0:
 
             while mask_byte & i:
-                nubr_byts += 1
+                number_bytes += 1
                 mask_byte = mask_byte >> 1
 
-            if nubr_byts == 0:
+            if number_bytes == 0:
                 continue
 
-            if nubr_byts == 1 or nubr_byts > 4:
+            if number_bytes == 1 or number_bytes > 4:
                 return False
 
         else:
             if not (i & mask_1 and not (i & mask_2)):
-                return False
+                    return False
 
-        nubr_byts -= 1
+        number_bytes -= 1
 
-    if nubr_byts == 0:
+    if number_bytes == 0:
         return True
 
     return False
-
