@@ -20,10 +20,10 @@ def validUTF8(data):
         if nubr_byts == 0:
 
             while mask_byte & i:
-                number_bytes += 1
+                nubr_byts += 1
                 mask_byte = mask_byte >> 1
 
-            if number_bytes == 0:
+            if nubr_byts == 0:
                 continue
 
             if nubr_byts == 1 or nubr_byts > 4:
