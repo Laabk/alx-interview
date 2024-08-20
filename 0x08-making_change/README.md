@@ -1,17 +1,3 @@
-
-Curriculum
-Short Specializations
-Average: 127.52%
-0x08. Making Change
-Algorithm
-Python
- By: Carrie Ybay, Software Engineer at Holberton School
- Weight: 1
- Project will start Jan 29, 2024 6:00 AM, must end by Feb 2, 2024 6:00 AM
- Checker was released at Jan 30, 2024 6:00 AM
- An auto review will be launched at the deadline
-Requirements
-General
 Allowed editors: vi, vim, emacs
 All your files will be interpreted/compiled on Ubuntu 20.04 LTS using python3 (version 3.4.3)
 All your files should end with a new line
