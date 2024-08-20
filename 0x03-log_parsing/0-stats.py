@@ -1,45 +1,45 @@
 #!/usr/bin/python3
-"""this is a scrpts that reads standard input line
-by line and computes metrics
+"""Takes and reads standard input line by line and computes metrics
 """
 
 
 def parseLogs():
     """
-    this reads a logs from standard input and generates reports
+    Takes and reads logs from standard input and generates reports
+    Reports:
     """
     stdin = __import__('sys').stdin
-    lineNumber = 0
-    fileSize = 0
+    lin_number = 0
+    fil_size = 0
     statusCodes = {}
-    codes = ('200', '301', '400', '401', '403', '404', '405', '500')
+    _codes = ('200', '301', '400', '401', '403', '404', '405', '500')
     try:
         for line in stdin:
-            lineNumber += 1
+            lin_number += 1
             line = line.split()
             try:
-                fileSize += int(line[-1])
-                if line[-2] in codes:
+                fil_size += int(line[-1])
+                if line[-2] in _codes:
                     try:
                         statusCodes[line[-2]] += 1
                     except KeyError:
                         statusCodes[line[-2]] = 1
             except (IndexError, ValueError):
                 pass
-            if lineNumber == 10:
-                report(fileSize, statusCodes)
-                lineNumber = 0
-        report(fileSize, statusCodes)
+            if lin_number == 10:
+                report(fil_size, statusCodes)
+                lin_number = 0
+        report(fil_size, statusCodes)
     except KeyboardInterrupt as e:
-        report(fileSize, statusCodes)
+        report(fil_size, statusCodes)
         raise
 
 
-def report(fileSize, statusCodes):
+def report(fil_size, statusCodes):
     """
-    this wil print generated report to standard output
+    this generated printed reports to standard output
     """
-    print("File size: {}".format(fileSize))
+    print("File size: {}".format(fil_size))
     for key, value in sorted(statusCodes.items()):
         print("{}: {}".format(key, value))
 
