@@ -7,7 +7,7 @@ def makeChange(coins, total):
     """This will take  list of coins to
     calculate how much change the total will require
     """
-    if sum <= 0:
+    if total <= 0:
         return 0
 
     else:
@@ -17,7 +17,7 @@ def makeChange(coins, total):
         for d in coin:
             while(total >= d):
                 counter += 1
-                sum -= d
-        if sum == 0:
+                total -= d
+        if total == 0:
             return counter
         return -1
