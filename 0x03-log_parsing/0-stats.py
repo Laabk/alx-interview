@@ -3,46 +3,37 @@
 """
 import sys
 
+status_codes_dict = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0,
+                     '404': 0, '405': 0, '500': 0}
 
-def print_msg(dict_sc, total_file_size):
-    """
-    Takes and reads logs from standard input and generates reports
-    """
-    stdin = __import__('sys').stdin
-    lineNumber = 0
-    fileSize = 0
-    statusCodes = {}
-    codes = ('200', '301', '400', '401', '403', '404', '405', '500')
-    try:
-        for line in stdin:
-            lineNumber += 1
-            line = line.split()
-            try:
-                fileSize += int(line[-1])
-                if line[-2] in codes:
-                    try:
-                        statusCodes[line[-2]] += 1
-                    except KeyError:
-                        statusCodes[line[-2]] = 1
-            except (IndexError, ValueError):
-                pass
-            if lineNumber == 10:
-                report(fileSize, statusCodes)
-                lineNumber = 0
-        report(fileSize, statusCodes)
-    except KeyboardInterrupt as e:
-        report(fileSize, statusCodes)
-        raise
+total_size = 0
+_iter = 0
 
+try:
+    for line in sys.stdin:
+        line_list = line.split(" ")
 
-def report(fileSize, statusCodes):
-    """
-    Generates a prints report to standard output
-    """
-    print("File size: {}".format(fileSize))
-    for key, value in sorted(statusCodes.items()):
-        print("{}: {}".format(key, value))
+        if len(line_list) > 4:
+            status_code = line_list[-2]
+            file_size = int(line_list[-1])
 
+            if status_code in status_codes_dict.keys():
+                status_codes_dict[status_code] += 1
+            total_size += file_size
+            _iter += 1
 
-if __name__ == '__main__':
-    parseLogs()
+        if _iter == 10:
+            _iter = 0
+            print('File size: {}'.format(total_size))
+            for key, value in sorted(status_codes_dict.items()):
+                if value != 0:
+                    print('{}: {}'.format(key, value))
+
+except Exception as error:
+    pass
+
+finally:
+    print('File size: {}'.format(total_size))
+    for key, value in sorted(status_codes_dict.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
